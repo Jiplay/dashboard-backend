@@ -1,0 +1,17 @@
+# Dashboard Backend Configuration
+
+# Collector settings
+[collectors]
+collection_interval_secs = 5
+enable_cpu = true
+enable_memory = true
+enable_disk = true
+enable_network = true
+enable_system = true
+
+# Server settings (only applies when api-server feature is enabled)
+[server]
+host = "127.0.0.1"
+port = 3000
+enable_cors = true
+cors_origins = ["*"]

@@ -1,0 +1,86 @@
+[package]
+name = "dashboard-backend"
+version = "0.1.0"
+edition = "2021"
+authors = ["Your Name <your.email@example.com>"]
+description = "Modular system metrics collection library for dashboards"
+license = "MIT"
+readme = "README.md"
+
+[lib]
+name = "dashboard_backend"
+path = "src/lib.rs"
+
+[[bin]]
+name = "dashboard-server"
+path = "src/main.rs"
+required-features = ["api-server"]
+
+[dependencies]
+# Core dependencies
+sysinfo = "0.32"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+thiserror = "1.0"
+tokio = { version = "1.41", features = ["full"] }
+chrono = { version = "0.4", features = ["serde"] }
+async-trait = "0.1"
+
+# Configuration
+config = { version = "0.14", optional = true }
+toml = { version = "0.8", optional = true }
+
+# API Server dependencies (optional)
+axum = { version = "0.7", optional = true }
+tower = { version = "0.5", optional = true }
+tower-http = { version = "0.5", features = ["cors", "trace"], optional = true }
+tracing = { version = "0.1", optional = true }
+tracing-subscriber = { version = "0.3", features = ["env-filter"], optional = true }
+
+# Network monitoring (optional)
+pnet = { version = "0.35", optional = true }
+
+[dev-dependencies]
+tokio-test = "0.4"
+
+[features]
+default = ["cpu", "memory", "disk", "system"]
+
+# Individual metric collectors
+cpu = []
+memory = []
+disk = []
+network = ["pnet"]
+processes = []
+system = []
+
+# Configuration support
+config-support = ["config", "toml"]
+
+# API server
+api-server = [
+    "axum",
+    "tower",
+    "tower-http",
+    "tracing",
+    "tracing-subscriber",
+    "config-support"
+]
+
+# All features
+full = [
+    "cpu",
+    "memory",
+    "disk",
+    "network",
+    "processes",
+    "system",
+    "config-support",
+    "api-server"
+]
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+strip = true
