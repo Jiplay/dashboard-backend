@@ -1,0 +1,26 @@
+[package]
+name = "rust-api-example"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+# Axum - Modern web framework built on Tokio
+axum = "0.7"
+
+# Tokio - Async runtime for Rust
+tokio = { version = "1", features = ["full"] }
+
+# Serde - Serialization/deserialization framework
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+# Tower - Middleware and utilities for async services
+tower = "0.4"
+tower-http = { version = "0.5", features = ["cors", "trace"] }
+
+# Tracing - Structured logging
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+# UUID - For generating unique IDs
+uuid = { version = "1", features = ["v4", "serde"] }
