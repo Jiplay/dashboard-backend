@@ -1,0 +1,7 @@
+POST http://localhost:3000/services
+Content-Type: application/json
+
+{
+  "link": "google.com",
+  "name": "Julien"
+}

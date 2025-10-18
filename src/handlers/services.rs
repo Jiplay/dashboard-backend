@@ -1,9 +1,13 @@
-use axum::Router;
-use axum::routing::{get, post};
-use crate::controllers::services;
+use axum::{Json, http::StatusCode};
+use crate::models::services::{CreateService, Service, ServiceResponse};
 
-pub fn init_services() -> Router {
-    Router::new()
-        .route("/services", get(services::get_services))
-        .route("/services", post(services::post_services))
+pub async fn get_services() -> &'static str {
+    "get services"
+}
+
+pub async fn post_services(Json(create_data): Json<CreateService>)
+    -> Result<Json<ServiceResponse>, StatusCode> {
+    let service = Service::new(create_data);
+    println!("{:?}", service);
+    Ok(Json(service.to_response()))
 }

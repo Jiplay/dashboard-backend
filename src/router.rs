@@ -1,8 +1,8 @@
 use axum::Router;
-use axum::routing::get;
+use crate::routes;
 
-// pub fn init_router() -> Router {
-//     Router::new()
-//     .route("/feed", get(feed))
-// }
-
+pub fn init_router() -> Router {
+    Router::new()
+        .merge(routes::services::init_services())
+        // Add more route modules here as needed
+}
